@@ -1,0 +1,33 @@
+{
+  "name": "gemini-desktop",
+  "version": "1.0.1",
+  "main": "main.js",
+  "author": "creativelab79",
+  "description": "A desktop wrapper for Gemini",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.creativelab.gemini",
+    "productName": "Gemini Desktop",
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "creativelab79",
+        "repo": "gemini-desktop"
+      }
+    ]
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.3"
+  },
+  "devDependencies": {
+    "electron": "^41.3.0",
+    "electron-builder": "^26.8.1"
+  }
+}
