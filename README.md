@@ -42,7 +42,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ---
 
 ## 👤 Credits
-Created and maintained by **Wily Wong**  
+Created and maintained by **Wily Wijaya**  
 [GitHub Profile](https://github.com/creativelab79)
 
 ---
