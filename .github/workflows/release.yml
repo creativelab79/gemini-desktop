@@ -6,12 +6,8 @@ on:
       - 'v*'   # Runs when you push a version tag like v1.0.0
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest, macos-latest]
-
+  build-windows:
+    runs-on: windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -24,23 +20,40 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build installer
-        run: |
-          if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            npm run dist -- --win
-          else
-            npm run dist -- --mac
-          fi
-        shell: bash
+      - name: Build Windows installer
+        run: npm run dist -- --win
 
-      - name: Upload artifacts
+      - name: Upload Windows artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ runner.os }}-installer
+          name: windows-installer
+          path: dist/*
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build macOS installer
+        run: npm run dist -- --mac
+
+      - name: Upload macOS artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-installer
           path: dist/*
 
   release:
-    needs: build
+    needs: [build-windows, build-macos]
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
