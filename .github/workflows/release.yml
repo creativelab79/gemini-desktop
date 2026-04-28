@@ -19,18 +19,19 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install dependencies
         run: npm install
 
       - name: Build installer
         run: |
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
             npm run dist -- --win
           else
             npm run dist -- --mac
           fi
+        shell: bash
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
@@ -51,5 +52,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: ./artifacts/**/*
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
