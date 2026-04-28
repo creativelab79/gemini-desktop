@@ -1,6 +1,6 @@
 {
   "name": "gemini-desktop",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "main": "main.js",
   "author": "creativelab79",
   "description": "A desktop wrapper for Gemini",
@@ -30,4 +30,5 @@
     "png2icons": "^2.0.1"
   }
 }
+
 
