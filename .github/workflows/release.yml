@@ -3,7 +3,7 @@ name: Build and Release Gemini Desktop
 on:
   push:
     tags:
-      - 'v*'   # Runs when you push a version tag like v1.0.0
+      - 'v*'
 
 jobs:
   build-windows:
@@ -21,6 +21,9 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Set GitHub token for electron-builder
+        run: echo "GH_TOKEN=${{ secrets.GH_PAT }}" >> $GITHUB_ENV
 
       - name: Build Windows installer
         run: npm run dist -- --win --publish=never
@@ -47,6 +50,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Set GitHub token for electron-builder
+        run: echo "GH_TOKEN=${{ secrets.GH_PAT }}" >> $GITHUB_ENV
+
       - name: Build macOS installer
         run: npm run dist -- --mac --publish=never
 
@@ -71,6 +77,12 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: ./artifacts/**/*
-          generate_release_notes: true
+          body: |
+            Gemini Desktop v1.0.8
+            - Windows and macOS installers included
+            - Built with Node.js 22
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
+
+
