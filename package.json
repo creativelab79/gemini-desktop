@@ -1,6 +1,6 @@
 {
   "name": "gemini-desktop",
-  "version": "1.0.1",
+  "version": "1.0.11",
   "main": "main.js",
   "author": "creativelab79",
   "description": "A desktop wrapper for Gemini",
@@ -15,13 +15,11 @@
       "target": "nsis",
       "icon": "icon.ico"
     },
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "creativelab79",
-        "repo": "gemini-desktop"
-      }
-    ]
+    "mac": {
+      "target": "dmg",
+      "icon": "icon.icns"
+    },
+    "publish": null
   },
   "dependencies": {
     "electron-updater": "^6.8.3"
@@ -32,3 +30,4 @@
     "png2icons": "^2.0.1"
   }
 }
+

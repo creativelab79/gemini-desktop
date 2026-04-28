@@ -76,7 +76,7 @@ jobs:
         with:
           files: ./artifacts/**/*
           body: |
-            Gemini Desktop v1.0.10
+            Gemini Desktop v1.0.11
             - Windows and macOS installers included
             - Built with Node.js 22
         env:
