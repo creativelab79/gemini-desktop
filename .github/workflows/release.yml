@@ -8,6 +8,8 @@ on:
 jobs:
   build-windows:
     runs-on: windows-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,7 +23,7 @@ jobs:
         run: npm install
 
       - name: Build Windows installer
-        run: npm run dist -- --win
+        run: npm run dist -- --win --publish=never
 
       - name: Upload Windows artifacts
         uses: actions/upload-artifact@v4
@@ -31,6 +33,8 @@ jobs:
 
   build-macos:
     runs-on: macos-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -44,7 +48,7 @@ jobs:
         run: npm install
 
       - name: Build macOS installer
-        run: npm run dist -- --mac
+        run: npm run dist -- --mac --publish=never
 
       - name: Upload macOS artifacts
         uses: actions/upload-artifact@v4
@@ -55,6 +59,8 @@ jobs:
   release:
     needs: [build-windows, build-macos]
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
@@ -64,7 +70,4 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ./artifacts/**/*
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          files: ./artifacts/**
