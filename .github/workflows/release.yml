@@ -76,11 +76,12 @@ jobs:
         with:
           files: ./artifacts/**/*
           body: |
-            Gemini Desktop v1.0.9
+            Gemini Desktop v1.0.10
             - Windows and macOS installers included
             - Built with Node.js 22
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
 
 
 
